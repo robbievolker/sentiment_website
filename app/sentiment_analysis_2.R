@@ -32,17 +32,18 @@ text_string <- scan(file = file_path, fileEncoding = "UTF-8", what = character()
 text_words <- get_tokens(text_string)
 
 sentiment_scores <- get_nrc_sentiment(lines_list, lang="english")
+write.csv(sentiment_scores, file = "C:/Users/mrrob/Desktop/Code/sentiment_website/app/data/sentiment_analysis.csv", row.names = FALSE)
+
 sentiment_valence <- (sentiment_scores$negative *-1) + sentiment_scores$positive
-plot_path <- "static/images/sentiment_valence_plot.png"
+plot_path <- "C:/Users/mrrob/Desktop/Code/sentiment_website/app/static/images/sentiment_valence_plot.png"
+
+if (file.exists(plot_path)) {
+  file.remove(plot_path)
+}
+
 png(plot_path)
 simple_plot(sentiment_valence)
 dev.off()
-
-summary(sentiment_scores)
-
-
-write.csv(sentiment_scores, file = "sentiment_analysis.csv", row.names = FALSE)
-
 
 
 

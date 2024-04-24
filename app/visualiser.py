@@ -7,7 +7,7 @@ from app import app
 
 def create_plots():
     # Read data from CSV file
-    data = pd.read_csv("sentiment_analysis.csv")
+    data = pd.read_csv("C:/Users/mrrob/Desktop/Code/sentiment_website/app/data/sentiment_analysis.csv")
 
     # Extract sentiment scores and emotions
     sentiment_scores = data.iloc[:, 0:]

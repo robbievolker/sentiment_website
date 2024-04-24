@@ -129,3 +129,23 @@ a.article-title:hover {
     margin-top: 20px;
     width: 100%;
 }
+
+.center-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.image-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.my-4 {
+    margin: 20px; /* Adjust as needed */
+}
+
+.image-container .my-4 {
+    margin-right: 20px; /* Adjust as needed */
+}

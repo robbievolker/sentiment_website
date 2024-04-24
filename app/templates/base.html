@@ -12,23 +12,21 @@
     {% else %}
     <title>Library App</title>
     {% endif %}
+
+    <style>
+        .site-title {
+            text-align: center;
+            margin-top: 50px; /* Adjust this value as needed */
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #333; /* Adjust color as needed */
+        }
+    </style>
 </head>
 <body>
-<header class="site-header">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark ">
-        <div class="container-fluid">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggle">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarToggle">
-                <div class="navbar-nav me-auto">
-                    <a class="nav-item nav-link" href="{{ url_for('index') }}">Home</a>
-
-                </div>
-            </div>
-        </div>
-    </nav>
-</header>
+<div class="site-title">
+    Screenplay Sentiment Analysis Application
+</div>
 
 <main role="main" class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -41,7 +39,7 @@
         {% endif %}
     {% endwith %}
     <div class="row">
-        <div class="col-sm-8">
+        <div class="col-sm-12">
             {% block content %}{% endblock %}
         </div>
     </div>

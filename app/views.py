@@ -36,6 +36,8 @@ def index():
         except Exception as error:
             print("An error has occurred, please try again.", error)
             flash(f"There was a problem with your file. Please ensure it is in the correct format", "danger")
+        finally:
+            os.remove("C:/Users/mrrob/Desktop/Code/sentiment_website/app/data/sentiment_analysis.csv")
     return render_template('index.html', form=form, title="Screenplay Sentiment Analyser", plot1 = plot_path1, plot2 = plot_path2)
 
 # Handler for 413 Error: "RequestEntityTooLarge". This error is caused by a file upload

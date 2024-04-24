@@ -1,4 +1,5 @@
 import os
+import re
 from docx import Document
 
 def is_character(paragraph, character):
@@ -21,9 +22,8 @@ def capture_dialogue(filename, character, app):
 
     # Iterate through each paragraph in the document
     for paragraph in doc.paragraphs:
-        # Check if the paragraph contains the character's name
         if character in paragraph.text:
-            # Check if the name "JOKER" is bold and all caps within the paragraph
+            # Check character matches character user is looking for.
             if is_character(paragraph, character):
                 capture_dialogue = True
                 valid_line = paragraph.text.strip().split(character)[-1].strip()
@@ -46,7 +46,8 @@ def capture_dialogue(filename, character, app):
     output_path = os.path.join(app.root_path, 'data', 'cleaned_lines.txt')
 
 
-    with open(output_path, "w") as file:
+    with open(output_path, "w", encoding="utf-8") as file:
         for line in dialogue:
             if not line == "":
-                file.write(line.strip() + "\n")
+                clean_line = ''.join(char for char in line if ord(char) < 128)
+                file.write(clean_line.strip() + "\n")

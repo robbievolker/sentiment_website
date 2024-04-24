@@ -17,4 +17,9 @@
     </div>
     <div>{{ form.submit() }}</div>
 </form>
+{% if plot1 %}
+    <div class="my-4">
+        <img src="{{ url_for('static', filename='images/sentiment_analysis_plot1.png') }}" alt="Sentiment Analysis Plot" style="width: 75%;">
+    </div>
+{% endif %}
 {% endblock %}

@@ -1,25 +1,40 @@
 {% extends "base.html" %}
 
 {% block content %}
-<form method="POST" action="" novalidate enctype="multipart/form-data">
-    {{ form.hidden_tag() }}
-    <div class="my-4">
-        {{ form.document.label }}<br/>{{ form.document() }}<br/>
-        {% for error in form.document.errors %}
-            <div style="color: red;">[{{ error }}]</div>
-        {% endfor %}
+<div class="container-center">
+    <div class="form-container">
+        <form method="POST" action="" novalidate enctype="multipart/form-data">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.document.label(class="form-label") }}<br/>{{ form.document(class="form-control") }}<br/>
+                {% for error in form.document.errors %}
+                    <div class="error-message">[{{ error }}]</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.character.label(class="form-label") }}<br/>{{ form.character(class="form-control") }}<br/>
+                {% for error in form.character.errors %}
+                    <div class="error-message">[{{ error }}]</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
+            </div>
+        </form>
     </div>
-    <div class="my-4">
-        {{ form.character.label }}<br/>{{ form.character() }}<br/>
-        {% for error in form.character.errors %}
-            <div style="color: red;">[{{ error }}]</div>
-        {% endfor %}
-    </div>
-    <div>{{ form.submit() }}</div>
-</form>
-{% if plot1 %}
-    <div class="my-4">
-        <img src="{{ url_for('static', filename='images/sentiment_analysis_plot1.png') }}" alt="Sentiment Analysis Plot" style="width: 75%;">
-    </div>
-{% endif %}
+</div>
+<div>
+    {% if plot1 %}
+        <div class="my-4">
+            <img src="{{ url_for('static', filename='images/sentiment_analysis_plot1.png') }}" alt="Sentiment Analysis Plot" class="analysis-image" style="width: 75%;">
+        </div>
+    {% endif %}
+</div>
+    <div>
+    {% if plot2 %}
+        <div class="my-4">
+            <img src="{{ url_for('static', filename='images/sentiment_valence_plot.png') }}" alt="Sentiment Valence Plot" class="analysis-image" style="width: 75%;">
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

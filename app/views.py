@@ -17,6 +17,7 @@ from app.visualiser import create_plots
 def index():
     form = ScreenplayAnalyserForm()
     plot_path1 = None
+    plot_path2 = None
     if form.validate_on_submit():
         unique_str = str(uuid4())
         filename = secure_filename(f'{unique_str}-{form.document.data.filename}')
@@ -29,11 +30,13 @@ def index():
             script_path = os.path.join(os.path.dirname(__file__), "sentiment_analysis_2.R")
             subprocess.run(["Rscript", script_path])
             plot_path1 = create_plots()
+            data_folder = os.path.join(app.root_path, 'static', 'images')
+            plot_path2 = os.path.join(data_folder, 'sentiment_valence_plot.png')
             flash(f"Sentiment analysis complete! Find your plots below!", "success")
         except Exception as error:
             print("An error has occurred, please try again.", error)
             flash(f"There was a problem with your file. Please ensure it is in the correct format", "danger")
-    return render_template('index.html', form=form, title="Screenplay Sentiment Analyser", plot1 = plot_path1)
+    return render_template('index.html', form=form, title="Screenplay Sentiment Analyser", plot1 = plot_path1, plot2 = plot_path2)
 
 # Handler for 413 Error: "RequestEntityTooLarge". This error is caused by a file upload
 # exceeding its permitted Capacity

@@ -78,3 +78,54 @@ a.article-title:hover {
 .account-heading {
   font-size: 2.5rem;
 }
+
+/* Center the form */
+.form-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Style form inputs */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-weight: bold;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.btn-submit {
+    display: block;
+    width: 50%;
+    margin: 0 auto; /* Center horizontally */
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+/* Error message style */
+.error-message {
+    color: red;
+}
+
+/* Style the image */
+.analysis-image {
+    display: block;
+    margin-top: 20px;
+    width: 100%;
+}

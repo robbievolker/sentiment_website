@@ -10,7 +10,7 @@
     {% if title %}
     <title>{{ title }}</title>
     {% else %}
-    <title>Library App</title>
+    <title>Sentiment Analysis Application</title>
     {% endif %}
 
     <style>
@@ -27,7 +27,7 @@
 <div class="site-title">
     Screenplay Sentiment Analysis Application
 </div>
-
+<br>
 <main role="main" class="container">
     {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}

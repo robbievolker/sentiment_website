@@ -13,37 +13,37 @@ if (!requireNamespace("wordcloud", quietly = TRUE)) {
 if (!requireNamespace("tm", quietly = TRUE)) {
   install.packages("tm")
 }
-
+if (!requireNamespace("here", quietly = TRUE)) {
+  install.packages("here")
 
 library(syuzhet)
 library(RColorBrewer)
 library(wordcloud)
 library(tm)
+library(here)
 
-
-# Specify the file path
-
-file_path <- "C:/Users/mrrob/Desktop/Code/sentiment_website/app/data/cleaned_lines.txt"
+# Specify the file paths relative to the R script location
+file_path <- here("app/data/cleaned_lines.txt")
+output_csv_path <- here("app/data/sentiment_analysis.csv")
+plot_path <- here("app/static/images/sentiment_valence_plot.png")
 
 # Read the lines of the file into a list
 lines_list <- readLines(file_path, encoding = "UTF-8")
 num_lines <- length(lines_list)
-text_string <- scan(file = file_path, fileEncoding = "UTF-8", what = character(), sep = "\n", allowEscapes = T)
+text_string <- scan(file = file_path, fileEncoding = "UTF-8", what = character(), sep = "\n", allowEscapes = TRUE)
 text_words <- get_tokens(text_string)
 
-sentiment_scores <- get_nrc_sentiment(lines_list, lang="english")
-write.csv(sentiment_scores, file = "C:/Users/mrrob/Desktop/Code/sentiment_website/app/data/sentiment_analysis.csv", row.names = FALSE)
+# Calculate sentiment scores
+sentiment_scores <- get_nrc_sentiment(lines_list, lang = "english")
+write.csv(sentiment_scores, file = output_csv_path, row.names = FALSE)
 
-sentiment_valence <- (sentiment_scores$negative *-1) + sentiment_scores$positive
-plot_path <- "C:/Users/mrrob/Desktop/Code/sentiment_website/app/static/images/sentiment_valence_plot.png"
+# Calculate sentiment valence
+sentiment_valence <- (sentiment_scores$negative * -1) + sentiment_scores$positive
 
+# Create the sentiment valence plot
 if (file.exists(plot_path)) {
   file.remove(plot_path)
 }
-
 png(plot_path)
 simple_plot(sentiment_valence)
 dev.off()
-
-
-

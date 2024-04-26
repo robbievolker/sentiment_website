@@ -13,15 +13,13 @@ if (!requireNamespace("wordcloud", quietly = TRUE)) {
 if (!requireNamespace("tm", quietly = TRUE)) {
   install.packages("tm")
 }
-if (!requireNamespace("here", quietly = TRUE)) {
-  install.packages("here")
-}
+
 
 library(syuzhet)
 library(RColorBrewer)
 library(wordcloud)
 library(tm)
-library(here)
+
 
 # Specify the file paths relative to the R script location
 file_path <- "./data/cleaned_lines.txt"

@@ -15,6 +15,7 @@ if (!requireNamespace("tm", quietly = TRUE)) {
 }
 if (!requireNamespace("here", quietly = TRUE)) {
   install.packages("here")
+}
 
 library(syuzhet)
 library(RColorBrewer)
@@ -23,27 +24,24 @@ library(tm)
 library(here)
 
 # Specify the file paths relative to the R script location
-file_path <- here("app/data/cleaned_lines.txt")
-output_csv_path <- here("app/data/sentiment_analysis.csv")
-plot_path <- here("app/static/images/sentiment_valence_plot.png")
+file_path <- "./data/cleaned_lines.txt"
 
 # Read the lines of the file into a list
 lines_list <- readLines(file_path, encoding = "UTF-8")
 num_lines <- length(lines_list)
-text_string <- scan(file = file_path, fileEncoding = "UTF-8", what = character(), sep = "\n", allowEscapes = TRUE)
+text_string <- scan(file = file_path, fileEncoding = "UTF-8", what = character(), sep = "\n", allowEscapes = T)
 text_words <- get_tokens(text_string)
 
-# Calculate sentiment scores
-sentiment_scores <- get_nrc_sentiment(lines_list, lang = "english")
-write.csv(sentiment_scores, file = output_csv_path, row.names = FALSE)
+sentiment_scores <- get_nrc_sentiment(lines_list, lang="english")
+write.csv(sentiment_scores, file = "./data/sentiment_analysis.csv", row.names = FALSE)
 
-# Calculate sentiment valence
-sentiment_valence <- (sentiment_scores$negative * -1) + sentiment_scores$positive
+sentiment_valence <- (sentiment_scores$negative *-1) + sentiment_scores$positive
+plot_path <- "./static/images/sentiment_valence_plot.png"
 
-# Create the sentiment valence plot
 if (file.exists(plot_path)) {
   file.remove(plot_path)
 }
+
 png(plot_path)
 simple_plot(sentiment_valence)
 dev.off()

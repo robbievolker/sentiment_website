@@ -7,6 +7,7 @@ import subprocess
 import requests
 from app.lines import *
 from app.visualiser import create_plots
+import time
 
 
 
@@ -47,7 +48,8 @@ def index():
             box_colour, text_colour = genre_colour(api_data.get('Genre').split(",")[0])
         try:
             capture_dialogue(file, character, app)
-            script_path = os.path.join(os.path.dirname(__file__), "sentiment_analysis_2.R")
+            script_path = os.path.join(app.root_path, "sentiment_analysis.R")
+            print(script_path)
             subprocess.run(["Rscript", script_path])
             plot_path1 = create_plots()
             data_folder = os.path.join(app.root_path, 'static', 'images')
@@ -58,7 +60,6 @@ def index():
             print("An error has occurred, please try again.", error)
             flash(f"There was a problem with your file. Please ensure it is in the correct format", "danger")
         finally:
-
             os.remove(os.path.join(app.config['DATA_FOLDER'], "sentiment_analysis.csv"))
             os.remove(os.path.join(app.config['DATA_FOLDER'], "cleaned_lines.txt"))
             os.remove(filepath)

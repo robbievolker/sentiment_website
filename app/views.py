@@ -49,7 +49,6 @@ def index():
         try:
             capture_dialogue(file, character, app)
             script_path = os.path.join(app.root_path, "sentiment_analysis.R")
-            print(script_path)
             subprocess.run(["Rscript", script_path])
             plot_path1 = create_plots()
             data_folder = os.path.join(app.root_path, 'static', 'images')

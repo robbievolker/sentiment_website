@@ -1,5 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request
-from app import app, db
+from app import app
 from app.forms import (ScreenplayAnalyserForm)
 from uuid import uuid4
 from werkzeug.utils import secure_filename

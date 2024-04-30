@@ -15,6 +15,8 @@ import time
 @app.route('/index', methods=["GET", "POST"])
 def index():
     form = ScreenplayAnalyserForm()
+
+    #Plots and quick facts to be passed to the HTML template.
     plot_path1 = None
     plot_path2 = None
     poster = None
@@ -28,6 +30,7 @@ def index():
     OMDB_API_KEY = os.environ.get('OMDB_API_KEY')
     box_colour = "#d6d6d6"
     text_colour = "#000000"
+
     if form.validate_on_submit():
         unique_str = str(uuid4())
         filename = secure_filename(f'{unique_str}-{form.document.data.filename}')
@@ -80,6 +83,7 @@ def genre_colour(genre):
     }
     return genre_colors.get(genre, ("#d6d6d6", "#000000"))  # Default colors
 
+#API call to OMDB API. Will return data for the "Quick Facts" box.
 def get_movie_data(movie_name, api_key):
     api_url = f'http://www.omdbapi.com/?apikey={api_key}&t={movie_name}'
     response = requests.get(api_url)

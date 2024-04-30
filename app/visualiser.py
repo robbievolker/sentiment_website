@@ -23,12 +23,13 @@ def create_plots():
     plt.figure(figsize=(8, 6))
     plt.barh(np.arange(len(emotions)), proportions, color=plt.cm.Set3(np.arange(len(emotions))), height=0.5)
 
-    # Customize plot
+    # Label axis and invert the axes.
     plt.xlabel('Proportion')
     plt.title('Sentiment Analysis')
     plt.yticks(np.arange(len(emotions)), emotions)
-    plt.gca().invert_yaxis()  # Invert y-axis to match R's barplot orientation
+    plt.gca().invert_yaxis()
 
+    #Save plot in data/images folder.
     data_folder = os.path.join(app.root_path, 'static', 'images')
     plot_path = os.path.join(data_folder, 'sentiment_analysis_plot1.png')
     plt.savefig(plot_path, bbox_inches='tight', dpi=300)

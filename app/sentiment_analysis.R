@@ -14,17 +14,19 @@ if (!requireNamespace("tm", quietly = TRUE)) {
   install.packages("tm")
 }
 
+if (!requireNamespace("here", quietly = TRUE)) {
+  install.packages("here")
+}
 
 library(syuzhet)
 library(RColorBrewer)
 library(wordcloud)
 library(tm)
+library(here)
 
-
-# Specify the file path
-
-file_path <- "C:/Users/mrrob/Desktop/Code/sentiment_website/app/data/cleaned_lines.txt"
-
+# Specify the file paths relative to the R script location
+file_path <- "./app/data/cleaned_lines.txt"
+print(file_path)
 # Read the lines of the file into a list
 lines_list <- readLines(file_path, encoding = "UTF-8")
 num_lines <- length(lines_list)
@@ -32,10 +34,12 @@ text_string <- scan(file = file_path, fileEncoding = "UTF-8", what = character()
 text_words <- get_tokens(text_string)
 
 sentiment_scores <- get_nrc_sentiment(lines_list, lang="english")
-write.csv(sentiment_scores, file = "C:/Users/mrrob/Desktop/Code/sentiment_website/app/data/sentiment_analysis.csv", row.names = FALSE)
+write.csv(sentiment_scores, file = "./app/data/sentiment_analysis.csv", row.names = FALSE)
 
 sentiment_valence <- (sentiment_scores$negative *-1) + sentiment_scores$positive
-plot_path <- "C:/Users/mrrob/Desktop/Code/sentiment_website/app/static/images/sentiment_valence_plot.png"
+plot_path <- "./app/static/images/sentiment_valence_plot.png"
+
+#Stacked area chart in R for third graph plot.
 
 if (file.exists(plot_path)) {
   file.remove(plot_path)
@@ -44,6 +48,3 @@ if (file.exists(plot_path)) {
 png(plot_path)
 simple_plot(sentiment_valence)
 dev.off()
-
-
-

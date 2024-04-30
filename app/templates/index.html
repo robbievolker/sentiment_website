@@ -6,33 +6,83 @@
         <form method="POST" action="" novalidate enctype="multipart/form-data">
             {{ form.hidden_tag() }}
             <div class="form-group">
+                <div class="form-group d-flex flex-column align-items-center">{{ form.title.label(class="form-label") }}</div>{{ form.title(class="form-control") }}<br/>
+                {% for error in form.title.errors %}
+                    <div class="error-message" style="color: red;">[{{ error }}]</div>
+                {% endfor %}
+            </div>
+            <div class="form-group">
                 <div class="form-group d-flex flex-column align-items-center">{{ form.document.label(class="form-label") }}</div>{{ form.document(class="form-control") }}<br/>
                 {% for error in form.document.errors %}
-                    <div class="error-message">[{{ error }}]</div>
+                    <div class="error-message" style="color: red;">[{{ error }}]</div>
                 {% endfor %}
             </div>
             <div class="form-group">
                 <div class="form-group d-flex flex-column align-items-center">{{ form.character.label(class="form-label") }}</div>{{ form.character(class="form-control") }}<br/>
                 {% for error in form.character.errors %}
-                    <div class="error-message">[{{ error }}]</div>
+                    <div class="error-message" style="color: red;">[{{ error }}]</div>
                 {% endfor %}
             </div>
-            <div class="form-group d-flex justify-content-center"> <!-- Apply flexbox properties -->
-                {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
+            <div class="form-group d-flex justify-content-center"> {{ form.submit(class="btn btn-primary btn-lg btn-block") }}
             </div>
         </form>
     </div>
 </div>
-<div class="image-container">
-    {% if plot1 %}
-        <div class="my-4">
-            <img src="{{ url_for('static', filename='images/sentiment_analysis_plot1.png') }}" alt="Sentiment Analysis Plot" class="analysis-image" style="width: 75%;">
+<br>
+<br>
+{% if poster %}
+<div class="container col-md-7" style="background-color: {{ box_colour }}; border-radius: 20px;">
+    <div class="row">
+        <div class="col-md-6">
+            <div class="poster pr-3" style="transform: scale(0.85);">
+                <img src="{{ poster }}" alt="Movie Poster" class="poster-image">
+            </div>
         </div>
-    {% endif %}
-    {% if plot2 %}
-        <div class="my-4">
-            <img src="{{ url_for('static', filename='images/sentiment_valence_plot.png') }}" alt="Sentiment Valence Plot" class="analysis-image" style="width: 75%;">
+        <div class="col-md-6" id="facts-box" style="color: {{ text_colour }}; margin-top: 30px;">
+            <h3 class="pl-3"><u>Quick Facts</u></h3>
+                {% if mtitle %}
+                    <p><b>Title:</b> {{ mtitle }}</p>
+                {% endif %}
+                {% if year %}
+                    <p><b>Year:</b> {{ year }}</p>
+                {% endif %}
+                {% if released %}
+                    <p><b>Released:</b> {{ released }}</p>
+                {% endif %}
+                {% if runtime %}
+                    <p><b>Runtime:</b> {{ runtime }}</p>
+                {% endif %}
+                {% if box_office %}
+                    <p><b>Box Office:</b> {{ box_office }}</p>
+                {% endif %}
+                {% if imdbRating %}
+                    <p><b>IMDb Rating:</b> {{ imdbRating }}</p>
+                {% endif %}
+                {% if imdbVotes %}
+                    <p><b>IMDb Votes:</b> {{ imdbVotes }}</p>
+                {% endif %}
         </div>
-    {% endif %}
+    </div>
+</div>
+<br>
+<br>
+{% endif %}
+<div class="container">
+    <div class="row">
+        {% if plot1 %}
+            <div class="col-md-6">
+                <a href="{{ url_for('static', filename='images/sentiment_analysis_plot1.png') }}" target="_blank">
+                    <img src="{{ url_for('static', filename='images/sentiment_analysis_plot1.png') }}" alt="Sentiment Analysis Plot" class="analysis-image img-fluid">
+                </a>
+            </div>
+        {% endif %}
+        {% if plot2 %}
+            <div class="col-md-6">
+                <a href="{{ url_for('static', filename='images/sentiment_valence_plot.png') }}" target="_blank">
+                    <img src="{{ url_for('static', filename='images/sentiment_valence_plot.png') }}" alt="Sentiment Valence Plot" class="analysis-image img-fluid">
+                </a>
+            </div>
+        {% endif %}
+    </div>
 </div>
 {% endblock %}

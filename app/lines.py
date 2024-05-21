@@ -4,12 +4,13 @@ from docx import Document
 
 
 """
-Helper function to check the character of each paragraph, to ensure we extract the correct lines. 
+Helper function to check the character of each paragraph, to ensure we extract the correct lines. Uses docx library
+to handle formatting (such as character name being in bold).
 """
 def is_character(paragraph, character):
     # Iterate through each run in the paragraph
     for run in paragraph.runs:
-        # Check if the run contains the text "JOKER"
+        # Check if the run contains the character.
         if character in run.text:
             # Check if the run is bold and all caps
             if run.bold and run.text.strip().isupper():
@@ -29,34 +30,26 @@ def capture_dialogue(filename, character, app):
 
     capture_dialogue = False
 
-    # Iterate through each paragraph in the document
     for paragraph in doc.paragraphs:
         if character in paragraph.text:
-            # Check character matches character input on the website.
             if is_character(paragraph, character):
                 capture_dialogue = True
-                valid_line = paragraph.text.strip().split(character)[-1].strip()
+                valid_line = paragraph.text.strip().split(character)[-1].strip() #This bit isolates just the dialogue and not the character name part part.
             else:
                 capture_dialogue = False
             continue
 
-        # If currently capturing character's dialogue
         if capture_dialogue:
-            # Add the paragraph text to character's dialogue
-            if paragraph.text.strip():  # Check if the paragraph is not blank
+            if paragraph.text.strip():
                 valid_line += ' ' + paragraph.text.strip()
             else:
-                # Update to state that we are no longer capturing the character's dialogue.
                 capture_dialogue = False
-                # Add character's dialogue to the list of lines to be appended to the file.
                 dialogue.append(valid_line)
 
-    # Write each element of dialogue list to the cleaned_lines.txt file.
+    #The part where the dialogue array is written to cleaned_lines.txt.
     output_path = os.path.join(app.root_path, 'data', 'cleaned_lines.txt')
-
-
     with open(output_path, "w", encoding="utf-8") as file:
         for line in dialogue:
             if not line == "":
-                clean_line = ''.join(char for char in line if ord(char) < 128) #Make sure char is ASCII for syuzhet.
+                clean_line = ''.join(char for char in line if ord(char) < 128) #Make sure char is an ASCII letter.
                 file.write(clean_line.strip() + "\n")

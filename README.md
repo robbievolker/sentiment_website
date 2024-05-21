@@ -1,3 +1,7 @@
+SENTIMENT ANALYSIS WEB APPLICATION
+==================================
+
+
 This is a sentiment analysis tool that allows you to generate sentiment analysis plots for various characters in screenplays. Screenplays must be supplied in doc, docx or odt format. Recommended source for screenplays is https://imsdb.com/. 
 
 With thanks to the developers of the syuzhet pacakge for R, which is used for conducting the sentiment analysis in this application.

@@ -26,12 +26,8 @@ library(here)
 
 # Specify the file paths relative to the R script location
 file_path <- "./app/data/cleaned_lines.txt"
-print(file_path)
 # Read the lines of the file into a list
 lines_list <- readLines(file_path, encoding = "UTF-8")
-num_lines <- length(lines_list)
-text_string <- scan(file = file_path, fileEncoding = "UTF-8", what = character(), sep = "\n", allowEscapes = T)
-text_words <- get_tokens(text_string)
 
 sentiment_scores <- get_nrc_sentiment(lines_list, lang="english")
 write.csv(sentiment_scores, file = "./app/data/sentiment_analysis.csv", row.names = FALSE)

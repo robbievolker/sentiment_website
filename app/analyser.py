@@ -2,7 +2,6 @@ import lines
 import os
 import subprocess
 
-
 def analyser(file, character):
         try:
             lines.capture_dialogue(file, character)

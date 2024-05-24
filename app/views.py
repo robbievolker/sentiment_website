@@ -38,8 +38,8 @@ def index():
         form.document.data.save(filepath)
         file = form.document.data
         character = form.character.data.strip().upper()
-        api_data = get_movie_data(form.title.data, OMDB_API_KEY)
-        if api_data:
+        try:
+            api_data = get_movie_data(form.title.data, OMDB_API_KEY)
             title = api_data.get('Title')
             year = api_data.get('Year')
             released = api_data.get('Released')
@@ -49,6 +49,9 @@ def index():
             imdbRating = api_data.get('imdbRating')
             imdbVotes = api_data.get('imdbVotes')
             box_colour, text_colour = genre_colour(api_data.get('Genre').split(",")[0])
+        except Exception as error:
+            print("An error has occurred, please try again.", error)
+            flash(f"There was a problem fetching the API data. Please ensure the name of the film is spelt correctly.", "danger")
         try:
             capture_dialogue(file, character, app)
             script_path = os.path.join(app.root_path, "sentiment_analysis.R")

@@ -7,3 +7,5 @@
 /dataSources/
 /dataSources.local.xml
 .flaskenv
+# .gitignore in /project-root/.idea
+../.env

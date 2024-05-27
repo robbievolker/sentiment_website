@@ -1,4 +1,4 @@
-SENTIMENT ANALYSIS WEB APPLICATION
+Sentiment Analysis Web Application
 ==================================
 This is a sentiment analysis tool that allows you to generate sentiment analysis plots for various characters in screenplays. Screenplays must be supplied in doc, docx or odt format. Recommended source for screenplays is https://imsdb.com/. 
 

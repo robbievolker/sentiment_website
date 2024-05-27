@@ -9,14 +9,14 @@ def create_plots():
     # Read data from CSV file
     data = pd.read_csv(os.path.join(app.config['DATA_FOLDER'], "sentiment_analysis.csv"))
 
-    # Extract sentiment scores and emotions
+    # Extract sentiment scores and emotions as a dataframe.
     sentiment_scores = data.copy()
     emotions = data.columns.tolist()
 
-    # Convert sentiment scores to float
+    # Convert sentiment scores in the dataframe to float for mathematical operations.
     sentiment_scores = sentiment_scores.astype(float)
 
-    # Calculate proportions
+    # Calculate proportions of elements in the dataframe.
     proportions = sentiment_scores.sum() / sentiment_scores.sum().sum()
 
     # Create a horizontal bar plot

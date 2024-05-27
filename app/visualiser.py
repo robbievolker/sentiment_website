@@ -10,8 +10,8 @@ def create_plots():
     data = pd.read_csv(os.path.join(app.config['DATA_FOLDER'], "sentiment_analysis.csv"))
 
     # Extract sentiment scores and emotions
-    sentiment_scores = data.iloc[:, 0:]
-    emotions = data.columns
+    sentiment_scores = data.copy()
+    emotions = data.columns.tolist()
 
     # Convert sentiment scores to float
     sentiment_scores = sentiment_scores.astype(float)
